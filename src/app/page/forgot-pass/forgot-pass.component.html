@@ -1,0 +1,25 @@
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center sign-page">
+    <h1 class="fw-bold fs-5 mb-4">Account Recovery</h1>
+    <p class="text-start">Enter the email address asscociated with your account and input your new password.</p>
+    <form class="container" [formGroup]="userForm">
+        <div class="alert alert-danger w-100 p-3" role="alert" [style.display]="btnValidation? 'block' : 'none'">
+            All field are required
+        </div>
+        <div class="d-flex flex-row align-items-center mb-3">
+            <input type="email" class="form-control" placeholder="Email" required formControlName="email"/>
+        </div>
+        <div class="password-container">
+            <input [(ngModel)]="password" [style.border-color]="password !== ''? passValid? 'green' : 'red' : ''" [type]="passwordVisible ? 'text' : 'password'" class="form-control" (input)="passwordCheck($event)" placeholder="New Password" name="password" formControlName="password" required>
+            <i class="bi bi-eye pointer" (click)="togglePasswordVisibility($event)"></i>
+        </div>
+        <div class="form-text text-start" [style.display]="password !== ''? passValid? 'none' : 'block' : 'none'" >
+            Password length is at least 6 characters, must contain numbers, and contain capital letters
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mb-3 mt-4" (click)="changePassword()" [disabled]="!passValid">
+            Continue
+        </button>
+        <div class="form-text text-center">
+            Don't have account? <span (click)="signUp()" class="link fw-bold pointer">Sign up</span>
+        </div>
+    </form>
+</div>

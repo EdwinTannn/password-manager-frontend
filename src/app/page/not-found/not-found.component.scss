@@ -1,0 +1,7 @@
+.container-fluid {
+    height: 100vh;
+
+    img {
+        width: clamp(200px, 50%, 500px);
+    }
+}

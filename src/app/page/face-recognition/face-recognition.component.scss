@@ -1,0 +1,42 @@
+:host {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    background-color: #14181d;
+    color: #fefdff;
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+
+    .container-fluid {
+        height: 100vh;
+        position: relative;
+        
+        .record {
+            display: flex;
+            justify-content: center;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+    
+            &-video-camera {
+                width: 300px;
+                height: 300px;
+                border-radius: 50%;
+                -webkit-mask-image: -webkit-radial-gradient(circle,
+                        white 100%,
+                        black 100%);
+    
+                & video {
+                    position: absolute;
+                    top: 10%;
+                    left: 28%;
+                }
+            }
+        }
+    }
+
+}

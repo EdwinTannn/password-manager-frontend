@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+.sign-page {
+    height: 150vh;
+    
+    form {
+        max-width: 500px;
+
+        .form-control:focus {
+            border-color: inherit;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        
+        .password-container {
+            width: 100%;
+            position: relative;
+            display: inline-block;
+        
+            i {
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+            }
+        }
+        
+        .link {
+            color: #000;
+        }        
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}

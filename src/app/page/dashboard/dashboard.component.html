@@ -1,0 +1,110 @@
+<div class="container-fluid">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-key me-2" viewBox="0 0 16 16">
+                    <path
+                        d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z" />
+                    <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                </svg>
+                <p class="mb-0 fs-5 fw-semibold" (click)="profilePage()">Hi, {{ this.username }}</p>
+            </a>
+
+            <div>
+                <a class="btn btn-outline-dark me-3" (click)="logout()">Logout</a>
+                <img src="{{ this.imgUrl }}" alt="Foto Profile" class="profile-image">
+            </div>
+        </div>
+    </nav>
+    <main class="mt-3">
+        <div class="d-flex justify-content-center align-items-center mb-3 flex-column">
+            <button class="btn btn-outline-success mb-3" (click)="isTambah = true"
+                [style.display]="isTambah? 'none' : 'block'">Add</button>
+            <form [style.display]="isTambah? 'block' : 'none'" [formGroup]="appForm">
+                <div class="alert alert-danger w-100 p-3" role="alert" [style.display]="btnValidation? 'block' : 'none'">
+                    All field are required
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold fs-5 mb-2">Input App Data</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-x pointer" viewBox="0 0 16 16" (click)="isTambah = false">
+                        <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="App name" formControlName="appName" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="App URL" formControlName="appLink" required>
+                </div>
+                <!-- <div class="d-flex gap-3 mb-3">
+                    <label class="form-label">Account Type</label>
+                    <div class="d-flex gap-3 mb-3">
+                        <label>
+                          <input type="radio" name="choice" [(ngModel)]="selectedChoice" value="option1"> Option 1
+                        </label>
+                        <label>
+                          <input type="radio" name="choice" [(ngModel)]="selectedChoice" value="option2"> Option 2
+                        </label>
+                      </div>
+                      
+                      <div *ngIf="selectedChoice === 'option1'">
+                        <p>Selected choice is: {{ selectedChoice }}</p>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Username" formControlName="username" required>
+                        </div>
+                      </div>
+                      
+                      <div *ngIf="selectedChoice === 'option2'">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Email address" formControlName="email" required>
+                        </div>
+                      </div>
+                      
+                </div> -->
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Username" formControlName="username" [(ngModel)]="recommendedUsername" required>
+                  </div>
+                <div>
+                    <button class="btn btn-outline-dark mb-3 me-3"(click)="fetchUserData()">Username Recommendation</button>
+                  </div>
+                
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Email address" formControlName="email" required>
+                </div>
+                <div class="password-container mb-3">
+                    <input [type]="passwordVisible ? 'text' : 'password'" class="form-control" placeholder="Password"
+                        name="password" formControlName="password" [(ngModel)]="recommendedPassword" required>
+                    <i class="bi bi-eye pointer" (click)="togglePasswordVisibility($event)"></i>
+                </div>
+                <div class="mb-3">
+                <button class="btn btn-outline-dark me-3"(click)="generate()">Recommend Password</button>
+                <!-- <p *ngIf="recommendedPassword">Recommended Password: {{ recommendedPassword }}</p> -->
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" (click)="submitForm()">Add</button>
+                </div>
+            </form>
+        </div>
+       <div class="grid">
+        <article class="d-flex align-items-center justify-content-between pointer" *ngFor="let app of apps" (click)="cardPage(app.app_id)">
+            <div class="d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                    <path fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                </svg>
+                <div class="d-flex flex-column ms-3">
+                        <h4 class="mb-0">{{ app.app_name }}</h4>
+                        <p class="mb-0">{{ app.app_email }}</p>
+                    
+                </div>
+            </div>
+            </article>
+        </div> 
+    </main>
+</div>  
+       
